@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5d06548694e14728bc6f9de11240f88f" Name="Diagram1" ZoomLevel="100" >
+        <EntityTypeShape EntityType="EducationDB.Student" Width="1.5" PointX="5" PointY="1.625" />
+        <EntityTypeShape EntityType="EducationDB.Course" Width="1.5" PointX="6.875" PointY="1.625" />
+        <EntityTypeShape EntityType="EducationDB.Lecturer" Width="1.5" PointX="8.75" PointY="1.625" />
+        <AssociationConnector Association="EducationDB.LecturerCourse" />
+        <EntityTypeShape EntityType="EducationDB.LaboratoryWork" Width="1.5" PointX="6.875" PointY="4.25" />
+        <AssociationConnector Association="EducationDB.LaboratoryWorkCourse" />
+        <EntityTypeShape EntityType="EducationDB.StudentGroup" Width="1.5" PointX="3.125" PointY="1.625" />
+        <AssociationConnector Association="EducationDB.StudentGroupStudent" />
+        <EntityTypeShape EntityType="EducationDB.LaboratoryWorkExecution" Width="1.5" PointX="5" PointY="4.25" />
+        <AssociationConnector Association="EducationDB.StudentLaboratoryWorkExecution" />
+        <AssociationConnector Association="EducationDB.LaboratoryWorkLaboratoryWorkExecution" />
+        <AssociationConnector Association="EducationDB.StudentCourse" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

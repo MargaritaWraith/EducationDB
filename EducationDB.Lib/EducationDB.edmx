@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EducationDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="EducationDBStoreContainer">
+    <EntitySet Name="Students" EntityType="EducationDB.Store.Students" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Courses" EntityType="EducationDB.Store.Courses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Lecturers" EntityType="EducationDB.Store.Lecturers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LaboratoryWorks" EntityType="EducationDB.Store.LaboratoryWorks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentGroups" EntityType="EducationDB.Store.StudentGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LaboratoryWorkExecutions" EntityType="EducationDB.Store.LaboratoryWorkExecutions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LecturerCourse" EntityType="EducationDB.Store.LecturerCourse" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudentCourse" EntityType="EducationDB.Store.StudentCourse" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_LecturerCourse_Lecturer" Association="EducationDB.Store.FK_LecturerCourse_Lecturer">
+      <End Role="Lecturer" EntitySet="Lecturers" />
+      <End Role="LecturerCourse" EntitySet="LecturerCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LecturerCourse_Course" Association="EducationDB.Store.FK_LecturerCourse_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="LecturerCourse" EntitySet="LecturerCourse" />
+    </AssociationSet>
+    <AssociationSet Name="LaboratoryWorkCourse" Association="EducationDB.Store.LaboratoryWorkCourse">
+      <End Role="LaboratoryWork" EntitySet="LaboratoryWorks" />
+      <End Role="Course" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="StudentGroupStudent" Association="EducationDB.Store.StudentGroupStudent">
+      <End Role="StudentGroup" EntitySet="StudentGroups" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="StudentLaboratoryWorkExecution" Association="EducationDB.Store.StudentLaboratoryWorkExecution">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="LaboratoryWorkExecution" EntitySet="LaboratoryWorkExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="LaboratoryWorkLaboratoryWorkExecution" Association="EducationDB.Store.LaboratoryWorkLaboratoryWorkExecution">
+      <End Role="LaboratoryWork" EntitySet="LaboratoryWorks" />
+      <End Role="LaboratoryWorkExecution" EntitySet="LaboratoryWorkExecutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentCourse_Student" Association="EducationDB.Store.FK_StudentCourse_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentCourse" EntitySet="StudentCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentCourse_Course" Association="EducationDB.Store.FK_StudentCourse_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="StudentCourse" EntitySet="StudentCourse" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StudentGroup_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Lecturers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LaboratoryWorks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Course_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudentGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LaboratoryWorkExecutions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order" Type="int" Nullable="true" />
+    <Property Name="Student_Id" Type="int" Nullable="false" />
+    <Property Name="LaboratoryWork_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LecturerCourse">
+    <Key>
+      <PropertyRef Name="Lecturers_Id" />
+      <PropertyRef Name="Courses_Id" />
+    </Key>
+    <Property Name="Lecturers_Id" Type="int" Nullable="false" />
+    <Property Name="Courses_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudentCourse">
+    <Key>
+      <PropertyRef Name="Students_Id" />
+      <PropertyRef Name="Courses_Id" />
+    </Key>
+    <Property Name="Students_Id" Type="int" Nullable="false" />
+    <Property Name="Courses_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="LaboratoryWorkCourse">
+    <End Role="LaboratoryWork" Type="EducationDB.Store.LaboratoryWorks" Multiplicity="*" />
+    <End Role="Course" Type="EducationDB.Store.Courses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LaboratoryWork">
+        <PropertyRef Name="Course_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentGroupStudent">
+    <End Role="StudentGroup" Type="EducationDB.Store.StudentGroups" Multiplicity="1" />
+    <End Role="Student" Type="EducationDB.Store.Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudentGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="StudentGroup_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentLaboratoryWorkExecution">
+    <End Role="Student" Type="EducationDB.Store.Students" Multiplicity="1" />
+    <End Role="LaboratoryWorkExecution" Type="EducationDB.Store.LaboratoryWorkExecutions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LaboratoryWorkExecution">
+        <PropertyRef Name="Student_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LaboratoryWorkLaboratoryWorkExecution">
+    <End Role="LaboratoryWork" Type="EducationDB.Store.LaboratoryWorks" Multiplicity="1" />
+    <End Role="LaboratoryWorkExecution" Type="EducationDB.Store.LaboratoryWorkExecutions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LaboratoryWork">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LaboratoryWorkExecution">
+        <PropertyRef Name="LaboratoryWork_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LecturerCourse_Lecturer">
+    <End Role="Lecturer" Type="EducationDB.Store.Lecturers" Multiplicity="1" />
+    <End Role="LecturerCourse" Type="EducationDB.Store.LecturerCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lecturer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LecturerCourse">
+        <PropertyRef Name="Lecturers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LecturerCourse_Course">
+    <End Role="LecturerCourse" Type="EducationDB.Store.LecturerCourse" Multiplicity="*" />
+    <End Role="Course" Type="EducationDB.Store.Courses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LecturerCourse">
+        <PropertyRef Name="Courses_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentCourse_Student">
+    <End Role="Student" Type="EducationDB.Store.Students" Multiplicity="1" />
+    <End Role="StudentCourse" Type="EducationDB.Store.StudentCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentCourse">
+        <PropertyRef Name="Students_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentCourse_Course">
+    <End Role="StudentCourse" Type="EducationDB.Store.StudentCourse" Multiplicity="*" />
+    <End Role="Course" Type="EducationDB.Store.Courses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentCourse">
+        <PropertyRef Name="Courses_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EducationDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="EducationDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Students" EntityType="EducationDB.Student" />
+          <EntitySet Name="Courses" EntityType="EducationDB.Course" />
+          <EntitySet Name="Lecturers" EntityType="EducationDB.Lecturer" />
+          <AssociationSet Name="LecturerCourse" Association="EducationDB.LecturerCourse">
+            <End Role="Lecturer" EntitySet="Lecturers" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <EntitySet Name="LaboratoryWorks" EntityType="EducationDB.LaboratoryWork" />
+          <AssociationSet Name="LaboratoryWorkCourse" Association="EducationDB.LaboratoryWorkCourse">
+            <End Role="LaboratoryWork" EntitySet="LaboratoryWorks" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+          <EntitySet Name="StudentGroups" EntityType="EducationDB.StudentGroup" />
+          <AssociationSet Name="StudentGroupStudent" Association="EducationDB.StudentGroupStudent">
+            <End Role="StudentGroup" EntitySet="StudentGroups" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <EntitySet Name="LaboratoryWorkExecutions" EntityType="EducationDB.LaboratoryWorkExecution" />
+          <AssociationSet Name="StudentLaboratoryWorkExecution" Association="EducationDB.StudentLaboratoryWorkExecution">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="LaboratoryWorkExecution" EntitySet="LaboratoryWorkExecutions" />
+          </AssociationSet>
+          <AssociationSet Name="LaboratoryWorkLaboratoryWorkExecution" Association="EducationDB.LaboratoryWorkLaboratoryWorkExecution">
+            <End Role="LaboratoryWork" EntitySet="LaboratoryWorks" />
+            <End Role="LaboratoryWorkExecution" EntitySet="LaboratoryWorkExecutions" />
+          </AssociationSet>
+          <AssociationSet Name="StudentCourse" Association="EducationDB.StudentCourse">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Course" EntitySet="Courses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="StudentGroup" Relationship="EducationDB.StudentGroupStudent" FromRole="Student" ToRole="StudentGroup" />
+          <NavigationProperty Name="LaboratoryWorkExecutions" Relationship="EducationDB.StudentLaboratoryWorkExecution" FromRole="Student" ToRole="LaboratoryWorkExecution" />
+          <NavigationProperty Name="Courses" Relationship="EducationDB.StudentCourse" FromRole="Student" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Lecturers" Relationship="EducationDB.LecturerCourse" FromRole="Course" ToRole="Lecturer" />
+          <NavigationProperty Name="LaboratoryWorks" Relationship="EducationDB.LaboratoryWorkCourse" FromRole="Course" ToRole="LaboratoryWork" />
+          <NavigationProperty Name="Students" Relationship="EducationDB.StudentCourse" FromRole="Course" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="EducationDB.LecturerCourse" FromRole="Lecturer" ToRole="Course" />
+          <Property Name="Surname" Type="String" Nullable="false" Unicode="true" />
+        </EntityType>
+        <Association Name="LecturerCourse">
+          <End Type="EducationDB.Lecturer" Role="Lecturer" Multiplicity="*" />
+          <End Type="EducationDB.Course" Role="Course" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LaboratoryWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Course" Relationship="EducationDB.LaboratoryWorkCourse" FromRole="LaboratoryWork" ToRole="Course" />
+          <NavigationProperty Name="LaboratoryWorkExecutions" Relationship="EducationDB.LaboratoryWorkLaboratoryWorkExecution" FromRole="LaboratoryWork" ToRole="LaboratoryWorkExecution" />
+        </EntityType>
+        <Association Name="LaboratoryWorkCourse">
+          <End Type="EducationDB.LaboratoryWork" Role="LaboratoryWork" Multiplicity="*" />
+          <End Type="EducationDB.Course" Role="Course" Multiplicity="1" />
+        </Association>
+        <EntityType Name="StudentGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="EducationDB.StudentGroupStudent" FromRole="StudentGroup" ToRole="Student" />
+        </EntityType>
+        <Association Name="StudentGroupStudent">
+          <End Type="EducationDB.StudentGroup" Role="StudentGroup" Multiplicity="1" />
+          <End Type="EducationDB.Student" Role="Student" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LaboratoryWorkExecution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Student" Relationship="EducationDB.StudentLaboratoryWorkExecution" FromRole="LaboratoryWorkExecution" ToRole="Student" />
+          <NavigationProperty Name="LaboratoryWork" Relationship="EducationDB.LaboratoryWorkLaboratoryWorkExecution" FromRole="LaboratoryWorkExecution" ToRole="LaboratoryWork" />
+        </EntityType>
+        <Association Name="StudentLaboratoryWorkExecution">
+          <End Type="EducationDB.Student" Role="Student" Multiplicity="1" />
+          <End Type="EducationDB.LaboratoryWorkExecution" Role="LaboratoryWorkExecution" Multiplicity="*" />
+        </Association>
+        <Association Name="LaboratoryWorkLaboratoryWorkExecution">
+          <End Type="EducationDB.LaboratoryWork" Role="LaboratoryWork" Multiplicity="1" />
+          <End Type="EducationDB.LaboratoryWorkExecution" Role="LaboratoryWorkExecution" Multiplicity="*" />
+        </Association>
+        <Association Name="StudentCourse">
+          <End Type="EducationDB.Student" Role="Student" Multiplicity="*" />
+          <End Type="EducationDB.Course" Role="Course" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EducationDBStoreContainer" CdmEntityContainer="EducationDBContext">
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IsTypeOf(EducationDB.Student)">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="IsTypeOf(EducationDB.Course)">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lecturers">
+      <EntityTypeMapping TypeName="IsTypeOf(EducationDB.Lecturer)">
+        <MappingFragment StoreEntitySet="Lecturers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LaboratoryWorks">
+      <EntityTypeMapping TypeName="IsTypeOf(EducationDB.LaboratoryWork)">
+        <MappingFragment StoreEntitySet="LaboratoryWorks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(EducationDB.StudentGroup)">
+        <MappingFragment StoreEntitySet="StudentGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LaboratoryWorkExecutions">
+      <EntityTypeMapping TypeName="IsTypeOf(EducationDB.LaboratoryWorkExecution)">
+        <MappingFragment StoreEntitySet="LaboratoryWorkExecutions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="LecturerCourse" TypeName="EducationDB.LecturerCourse" StoreEntitySet="LecturerCourse">
+      <EndProperty Name="Lecturer">
+        <ScalarProperty Name="Id" ColumnName="Lecturers_Id" />
+      </EndProperty>
+      <EndProperty Name="Course">
+        <ScalarProperty Name="Id" ColumnName="Courses_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LaboratoryWorkCourse" TypeName="EducationDB.LaboratoryWorkCourse" StoreEntitySet="LaboratoryWorks">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="Id" ColumnName="Course_Id" />
+      </EndProperty>
+      <EndProperty Name="LaboratoryWork">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentGroupStudent" TypeName="EducationDB.StudentGroupStudent" StoreEntitySet="Students">
+      <EndProperty Name="StudentGroup">
+        <ScalarProperty Name="Id" ColumnName="StudentGroup_Id" />
+      </EndProperty>
+      <EndProperty Name="Student">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentLaboratoryWorkExecution" TypeName="EducationDB.StudentLaboratoryWorkExecution" StoreEntitySet="LaboratoryWorkExecutions">
+      <EndProperty Name="Student">
+        <ScalarProperty Name="Id" ColumnName="Student_Id" />
+      </EndProperty>
+      <EndProperty Name="LaboratoryWorkExecution">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LaboratoryWorkLaboratoryWorkExecution" TypeName="EducationDB.LaboratoryWorkLaboratoryWorkExecution" StoreEntitySet="LaboratoryWorkExecutions">
+      <EndProperty Name="LaboratoryWork">
+        <ScalarProperty Name="Id" ColumnName="LaboratoryWork_Id" />
+      </EndProperty>
+      <EndProperty Name="LaboratoryWorkExecution">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentCourse" TypeName="EducationDB.StudentCourse" StoreEntitySet="StudentCourse">
+      <EndProperty Name="Student">
+        <ScalarProperty Name="Id" ColumnName="Students_Id" />
+      </EndProperty>
+      <EndProperty Name="Course">
+        <ScalarProperty Name="Id" ColumnName="Courses_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
