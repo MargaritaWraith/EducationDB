@@ -11,6 +11,7 @@ namespace EducationDB.Lib
 {
     public partial class EducationDBContext
     {
+        //static EducationDBContext() => Database.SetInitializer(new MigrateDatabaseToLatestVersion<>());
         //static EducationDBContext() => Database.SetInitializer(new EducationDBContextInitializer());
     }
 
@@ -230,10 +231,6 @@ namespace EducationDB.Lib
                 }
                 db.SaveChanges();
             }
-
-
-
-
         }
     }
 }

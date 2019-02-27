@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EducationDB" Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EducationDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="EducationDB.Lib.Properties.Settings" SettingsPropertyName="EducationDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Courses" Member="Courses">
+    <Type Name="Courses">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Courses_LaboratoryWorks" Member="LaboratoryWorks" ThisKey="Id" OtherKey="Course_Id" Type="LaboratoryWorks" />
+      <Association Name="Courses_LecturerCourse" Member="LecturerCourse" ThisKey="Id" OtherKey="Courses_Id" Type="LecturerCourse" />
+      <Association Name="Courses_StudentCourse" Member="StudentCourse" ThisKey="Id" OtherKey="Courses_Id" Type="StudentCourse" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LaboratoryWorkExecutions" Member="LaboratoryWorkExecutions">
+    <Type Name="LaboratoryWorkExecutions">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Order]" Member="Order" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Student_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LaboratoryWork_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="LaboratoryWorks_LaboratoryWorkExecutions" Member="LaboratoryWorks" ThisKey="LaboratoryWork_Id" OtherKey="Id" Type="LaboratoryWorks" IsForeignKey="true" />
+      <Association Name="Students_LaboratoryWorkExecutions" Member="Students" ThisKey="Student_Id" OtherKey="Id" Type="Students" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LaboratoryWorks" Member="LaboratoryWorks">
+    <Type Name="LaboratoryWorks">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Course_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="LaboratoryWorks_LaboratoryWorkExecutions" Member="LaboratoryWorkExecutions" ThisKey="Id" OtherKey="LaboratoryWork_Id" Type="LaboratoryWorkExecutions" />
+      <Association Name="Courses_LaboratoryWorks" Member="Courses" ThisKey="Course_Id" OtherKey="Id" Type="Courses" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LecturerCourse" Member="LecturerCourse">
+    <Type Name="LecturerCourse">
+      <Column Name="Lecturers_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Courses_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Courses_LecturerCourse" Member="Courses" ThisKey="Courses_Id" OtherKey="Id" Type="Courses" IsForeignKey="true" />
+      <Association Name="Lecturers_LecturerCourse" Member="Lecturers" ThisKey="Lecturers_Id" OtherKey="Id" Type="Lecturers" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lecturers" Member="Lecturers">
+    <Type Name="Lecturers">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Lecturers_LecturerCourse" Member="LecturerCourse" ThisKey="Id" OtherKey="Lecturers_Id" Type="LecturerCourse" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentCourse" Member="StudentCourse">
+    <Type Name="StudentCourse">
+      <Column Name="Students_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Courses_Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Courses_StudentCourse" Member="Courses" ThisKey="Courses_Id" OtherKey="Id" Type="Courses" IsForeignKey="true" />
+      <Association Name="Students_StudentCourse" Member="Students" ThisKey="Students_Id" OtherKey="Id" Type="Students" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentGroups" Member="StudentGroups">
+    <Type Name="StudentGroups">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="StudentGroups_Students" Member="Students" ThisKey="Id" OtherKey="StudentGroup_Id" Type="Students" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Students" Member="Students">
+    <Type Name="Students">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="StudentGroup_Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Students_LaboratoryWorkExecutions" Member="LaboratoryWorkExecutions" ThisKey="Id" OtherKey="Student_Id" Type="LaboratoryWorkExecutions" />
+      <Association Name="Students_StudentCourse" Member="StudentCourse" ThisKey="Id" OtherKey="Students_Id" Type="StudentCourse" />
+      <Association Name="StudentGroups_Students" Member="StudentGroups" ThisKey="StudentGroup_Id" OtherKey="Id" Type="StudentGroups" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
